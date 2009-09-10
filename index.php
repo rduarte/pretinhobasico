@@ -7,9 +7,9 @@ require_once($pathinfo['dirname'].'/spyc.php');
 
 // Buscar pelos programas no site da Atlântida
 $html = utf8_encode(file_get_contents("http://www.clicrbs.com.br/atlantidafm/jsp/default.jsp?uf=1&local=1&template=3343.dwt&pSection=726&section=12"));
-preg_match_all(("/» &nbsp;Pretinho das (.*)<!-- Escutar--><!-- Baixar-->&nbsp;|&nbsp;<a/"), ($html), $matches);
+preg_match_all(("/» &nbsp;Pretinho(.*)<!-- Escutar--><!-- Baixar-->&nbsp;|&nbsp;<a/"), ($html), $matches);
 $matches = explode("»", $matches[0][0]);
-
+    
 foreach ($matches as $match){
   // Pegando titulos
   preg_match("/&nbsp;(.*):&nbsp;</",$match, $matches);
@@ -17,7 +17,11 @@ foreach ($matches as $match){
   // Pegando arquivos
   preg_match("/<a onclick=\"(.*)\" href=\"(.*)\">Escutar/",$match, $matches);
   if (!empty($matches[1])) $arquivos[] = $matches[2];
+
+    
 }
+
+
 
 // Criar array unificado
 $data = "0";
